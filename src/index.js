@@ -42,12 +42,12 @@ app.get('/getAll', async (req, res) => {
     res.status(200).send({ "todos": todos })
   } catch (err) {
     console.log(err)
-    res.status(400).send({ "message": "Todo not found" })
+    res.status(404).send({ "message": "Todo not found" })
   }
 })
 app.patch('/update/:id', async (req, res) => {
-  const { id } = req.headers;
-  const { task, completed } = req.params;
+  const { id } = req.params;
+  const { task, completed } = req.body;
   if (!task || !completed) {
     res.status(200).send({ "message": "No fields provided to update" })
   }
