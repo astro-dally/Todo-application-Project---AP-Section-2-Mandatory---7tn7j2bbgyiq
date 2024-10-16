@@ -51,10 +51,13 @@ app.patch('/update/:id', async (req, res) => {
   if (!task || !completed) {
     res.status(200).send({ "message": "Todo is updated" })
   }
+  // if (completed === true) {
+  //   res.status(200).send({ "message": "Todo is updated" })
+  // }
   try {
     const updatedTodo = await prisma.todos.update({
       where: { id: Number(id) },
-      data: { task: task, completed: completed }
+      data: { task: task, completed: completed === true }
     })
     res.status(200).send({ message: "Todo is updated", updatedTodo })
 
