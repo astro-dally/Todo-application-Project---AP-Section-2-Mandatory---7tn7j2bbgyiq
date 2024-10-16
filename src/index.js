@@ -47,7 +47,7 @@ app.get('/getAll', async (req, res) => {
 })
 app.patch('/update/:id', async (req, res) => {
   const { id } = req.headers;
-  const { task, completed } = req.body;
+  const { task, completed } = req.params;
   if (!task || !completed) {
     res.status(200).send({ "message": "No fields provided to update" })
   }
@@ -65,7 +65,7 @@ app.patch('/update/:id', async (req, res) => {
 })
 
 app.delete('/delete/:id', async (req, res) => {
-  const { id } = req.headers;
+  const { id } = req.params;
   try {
     await prisma.todos.delete({
       where: { id: Number(id) }
