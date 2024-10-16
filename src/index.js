@@ -31,10 +31,13 @@ app.post("/create", async (req, res) => {
   }
 });
 
+
 app.get('/getAll', async (req, res) => {
+  let todos = []
   try {
     const response = await prisma.todos.findMany();
-    res.status(200).send(response)
+    todos.push(response)
+    res.status(200).send({ "todos": todos })
   } catch (err) {
     console.log(err)
     res.status(400).send({ "message": "Todo not found" })
