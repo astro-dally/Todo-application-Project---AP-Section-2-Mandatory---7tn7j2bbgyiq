@@ -53,7 +53,7 @@ app.patch('/update/:id', async (req, res) => {
   }
   try {
     const updatedTodo = await prisma.todos.update({
-      where: { id: id },
+      where: { id: Number(id) },
       data: { task: task, completed: completed }
     })
     res.status(200).send({ message: "Todo is updated", updatedTodo })
@@ -68,12 +68,12 @@ app.delete('/delete/:id', async (req, res) => {
   const { id } = req.headers;
   try {
     await prisma.todos.delete({
-      where: { id: id }
+      where: { id: Number(id) }
     })
     res.status(200).send({ "message": "Todo is Deleted" })
   } catch (err) {
     console.log(err)
-    res.status(400).send({ "message": "Todo not found" })
+    res.status(404).send({ "message": "Todo not found" })
   }
 })
 
