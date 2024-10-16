@@ -48,8 +48,8 @@ app.get('/getAll', async (req, res) => {
 app.patch('/update/:id', async (req, res) => {
   const { id } = req.params;
   const { task, completed } = req.body;
-  if (!task || !completed) {
-    res.status(200).send({ "message": "Todo is updated" })
+  if (!task) {
+    res.status(400).send({ "message": "No fields provided to update" })
   }
   if (!completed) {
     res.status(400).send({ "message": "No fields provided to update" })
