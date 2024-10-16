@@ -31,7 +31,46 @@ app.post("/create", async (req, res) => {
   }
 });
 
-//write your code here
+app.get('/getAll', async (req, res) => {
+  try {
+    const response = await prisma.todos.findMany();
+    res.status(200).send(response)
+  } catch (err) {
+    console.log(err)
+    res.status(400).send({ "message": "Todo not found" })
+  }
+})
+app.patch('/update/:id', async (req, res) => {
+  const { id } = req.headers;
+  const { task, completed } = req.body;
+  if (!task || !completed) {
+    res.status(400).send({ "message": "No fields provided to update" })
+  }
+  try {
+    const updatedTodo = await prisma.todos.update({
+      where: { id },
+      data: { task, completed }
+    })
+    res.status(200).send({ message: "Todo is updated", updatedTodo })
+
+  } catch (err) {
+    console.log(err)
+    res.status(400).send({ "message": "Todo not found" })
+  }
+})
+
+app.delete('/delete/:id', async (req, res) => {
+  const { id } = req.headers;
+  try {
+    await prisma.todos.delete({
+      where: { id }
+    })
+    res.status(200).send({ "message": "Todo is Deleted" })
+  } catch (err) {
+    console.log(err)
+    res.status(400).send({ "message": "Todo not found" })
+  }
+})
 
 app.listen(port, () => {
   console.log(`Server is running on http://localhost:${port}`);
