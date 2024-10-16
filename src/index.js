@@ -51,6 +51,9 @@ app.patch('/update/:id', async (req, res) => {
   if (!task || !completed) {
     res.status(200).send({ "message": "Todo is updated" })
   }
+  if (!completed) {
+    res.status(400).send({ "message": "No fields provided to update" })
+  }
   // if (completed === true) {
   //   res.status(200).send({ "message": "Todo is updated" })
   // }
