@@ -36,7 +36,9 @@ app.get('/getAll', async (req, res) => {
   let todos = []
   try {
     const response = await prisma.todos.findMany();
-    todos.push(response)
+    for (i of response) {
+      todos.push(i)
+    }
     res.status(200).send({ "todos": todos })
   } catch (err) {
     console.log(err)
