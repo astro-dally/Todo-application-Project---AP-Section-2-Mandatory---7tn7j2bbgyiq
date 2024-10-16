@@ -49,7 +49,7 @@ app.patch('/update/:id', async (req, res) => {
   const { id } = req.headers;
   const { task, completed } = req.body;
   if (!task || !completed) {
-    res.status(400).send({ "message": "No fields provided to update" })
+    res.status(200).send({ "message": "No fields provided to update" })
   }
   try {
     const updatedTodo = await prisma.todos.update({
