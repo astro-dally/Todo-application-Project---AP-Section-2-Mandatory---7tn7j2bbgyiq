@@ -52,11 +52,11 @@ app.patch('/update/:id', async (req, res) => {
     res.status(200).send({ "message": "Todo is updated" })
   }
   if (!completed) {
-    res.status(200).send({ "message": "Todo is updated" })
+    res.status(400).send({ "message": "No fields provided to update" })
   }
-  if (completed === true) {
-    res.status(200).send({ "message": "Todo is updated" })
-  }
+  // if (completed === true) {
+  //   res.status(200).send({ "message": "Todo is updated" })
+  // }
   try {
     const updatedTodo = await prisma.todos.update({
       where: { id: Number(id) },
